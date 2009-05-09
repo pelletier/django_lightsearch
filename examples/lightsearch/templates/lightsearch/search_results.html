@@ -1,4 +1,5 @@
 {% load lightsearch_forms %}
+{% load lightsearch_data %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -11,7 +12,26 @@
         {% lightsearch_searchform %}
         <hr/>
         <p>
-            {{results}}
+            {% models_type in results as mt%}
+            Results found in:
+            <ul>
+                {% for type in mt %}
+                <li>{{type}}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <hr/>
+        <p>
+            {% for model in results.sets %}
+                <h2>{{model.name}}</h2>
+                <p>
+                    <ul>
+                        {% for item in model.results %}
+                        <li>{{item}}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+            {% endfor %}
         </p>
     </body>
 </html>

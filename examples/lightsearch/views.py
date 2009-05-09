@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.db.models import get_model
 from lightsearch.utils import get_method, normalize_query
 from lightsearch.forms import SearchForm
+from lightsearch.classes import ResultsContainer
 
 import re
 
@@ -52,8 +53,9 @@ def search(request):
                 # add the results to the global results list
                 results.append((name, objects_results))
             # Finally, render the pages
+            container = ResultsContainer(results)
             return render('lightsearch/search_results.html',
-                            {'results': results},
+                            {'results': container},
                             context_instance=RequestContext(request))
             
     return HttpResponseRedirect('/') # TODO: better redirection
