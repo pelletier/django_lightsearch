@@ -70,6 +70,7 @@ ROOT_URLCONF = 'examples.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'templates'),
+    os.path.join(ROOT_PATH, 'lightsearch', 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -87,3 +88,5 @@ LIGHTSEARCH_MODELS = [
     'myapp.post',
     'myapp.author',
 ]
+
+LIGHTSEARCH_METHOD = 'post' # Must be 'post' or 'get' 

@@ -5,7 +5,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$', welcome), # The test page
-    (r'^search/', include('lightsearch.urls')), # The lightsearch area
-    (r'^admin/(.*)', admin.site.root), # The admin page to add fixtures
+    # The test page
+    (r'^$', welcome),
+    # The lightsearch area
+    (r'^search/', include('lightsearch.urls')),
+    # The admin page to add fixtures
+    (r'^admin/(.*)', admin.site.root),
 )
