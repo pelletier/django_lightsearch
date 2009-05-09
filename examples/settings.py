@@ -85,8 +85,9 @@ INSTALLED_APPS = (
 
 # Lightsearch settings
 LIGHTSEARCH_MODELS = [
-    'myapp.post',
-    'myapp.author',
+    # ('Verbose name', '<appname>.<model>'),
+    ('Ticket', 'myapp.ticket'),
+    ('Author', 'myapp.author'),
 ]
 
 LIGHTSEARCH_METHOD = 'post' # Must be 'post' or 'get' 
