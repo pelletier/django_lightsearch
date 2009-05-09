@@ -1,0 +1,74 @@
+Installation
+============
+
+Just copy the `lightsearch` folder into your project path.
+
+Set it up
+=========
+
+Edit your `settings.py` file and add `lightsearch` to the `INSTALLED_APPS`
+list. Now, you have to define which models have to be included in the search
+queries. Stay in your `settings.py` file and add the `LIGHTSEARCH_MODELS`
+setting. This setting is a list of tuples. Each tuple represents a model. Its
+first part is its verbose name (ie: the human readable name) and the second is
+the link to the model (ie: something link <application_name>.<model>). Here is
+an example::
+
+    LIGHTSEARCH_MODELS = [
+        # ('Verbose name', '<appname>.<model>'),
+        ('Ticket', 'myapp.ticket'),
+        ('Author', 'myapp.author'),
+    ]
+
+It's okay for the `settings.py` file, except if you want to specify which
+method to use to send search forms (lightsearch uses POST by default). If you
+want so, add this line to your `settings.py`::
+
+    LIGHTSEARCH_METHOD = 'post' # Must be 'post' or 'get' 
+
+Right. Now, you have to set which fields of your models have to be included in
+the search queries. To do so, go in your `models.py` file(s), and add in your
+models a `Lightsearch` class containing a `fields` list. Here is an example::
+
+    class Author(models.Model):
+        """
+            An author who write a lot of tickets
+        
+            >>> jack = Author.objects.create(name="jack",\
+                address="jack@example.com", bio="I love Django")
+            >>> jack.name
+            "jack"
+        
+        """
+        name = models.CharField('Name', max_length=200)
+        address = models.CharField('Address', max_length=200)
+        bio = models.TextField('Life')
+    
+        def __unicode__(self):
+            return '%s (%s)' % (self.name, self.address)
+    
+        class Lightsearch:
+            fields = ['name', 'bio']
+
+Next, you have to add the templates directory of Lightsearch in your `settings.py`. Here is an example:
+
+    # Those two lines are needed
+    import os
+    ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
+
+    # A part of your settings.py there
+
+    TEMPLATE_DIRS = (
+        os.path.join(ROOT_PATH, 'templates'),   # This line doesn't matter:
+                                                # just for example
+        os.path.join(ROOT_PATH, 'lightsearch', 'templates'), # Add this line
+    )
+
+    # The end of your setting.py
+
+Finally, you have to add one line in your `urls.py` to indicate where the
+search queries must be send::
+
+    (r'^search/', include('lightsearch.urls')),
+
+That's it. Now you can read the next part of the guide: the USAGE file.

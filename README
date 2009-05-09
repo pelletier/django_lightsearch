@@ -1,0 +1,22 @@
+==================
+Django-lightsearch
+==================
+
+Django-lightsearch is a small application which allows you to perform searches
+on multiple models.
+
+Install
+=======
+
+Read INSTALL for detailed explanations.
+
+Usage
+=====
+
+Read the USAGE file for detailed explanations, or read-it online:
+
+
+Author
+======
+
+Thomas PELLETIER <pelletier.thomas@gmail.com>

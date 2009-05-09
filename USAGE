@@ -1,0 +1,55 @@
+How to use Lightsearch
+======================
+
+Before all, don't forget the example folder. It contains a full example of the basic use of Lightsearch. If you don't understand things in this guide, don't hesitate to read the example.
+
+You must have installed and configured Lightsearch (see INSTALL) before reading the next part of this guide.
+
+First step: render a search form
+--------------------------------
+
+Lightsearch provides a tag to render a search form::
+
+    {% load lightsearch_forms %}
+    {% lightsearch_searchform %}
+
+The default template used to render the form is really simple, but you can override it.
+
+Next: override the results page
+-------------------------------
+
+Lightsearch comes with a really simple results page. It probably doesn't feet your needs. That's why you have to override it. The results page template is `lightsearch/search_results.html`. You have to know that Lightseach add one variable to the results page: `results` (surprising isn't it?). `results` is a `ResultsContainer` instance. The aim of the `ResultsContainer` class is to make easy the management of the results of the search. Here is an example to print all the results::
+
+    {% for model in results.sets %}
+        <h2>{{model.name}}</h2>
+        <p>
+            <ul>
+                {% for item in model.results %}
+                <li>{{item}}</li>
+                {% endfor %}
+            </ul>
+        </p>
+    {% endfor %}
+
+As you can see, the results are grouped by model. It's for now the only structure provided by Lightsearch.
+
+Templatetags
+~~~~~~~~~~~~
+
+In the results page, you can load `lightsearch_data`::
+
+    {% load lightsearch_data %}
+
+It will contains some useful tags and filters to manage results. For now, the only one tag is `models_type`. Here is its syntax:
+
+    {% models_type in results as variable %}
+
+`variable` will contain a list of the name of models where results have been found. Here is an example:
+
+    {% models_type in results as mt %}
+    Results found in:
+    <ul>
+        {% for type in mt %}
+        <li>{{type}}</li>
+        {% endfor %}
+    </ul>
