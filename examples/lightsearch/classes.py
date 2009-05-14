@@ -5,6 +5,12 @@ class ResultsSet():
         self.name = name
         self.results = results
 
+    def count(self):
+        counter = 0
+        for result in self.results:
+            counter += 1
+        return counter
+
 class ResultsContainer():
     """Contains the result of the search view for simplicity"""
     
