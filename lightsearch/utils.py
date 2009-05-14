@@ -8,8 +8,11 @@ def get_method():
         Returns the method which must be used to send the form.
         'post' is the default value.
     """
+    try:
+        method = settings.LIGHTSEARCH_METHOD
+    except AttributeError:
+        return 'post'
     
-    method = settings.LIGHTSEARCH_METHOD
     if method.lower() != 'post' and method.lower() != 'get':
         return 'post' # POST as default
     else:
