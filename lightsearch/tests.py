@@ -38,7 +38,7 @@ views
 
 search:
 
-    >>> data = {'query': 'hello'}
+    >>> data = {'query': 'he*o test'}
     >>> f = SearchForm(data)
     >>> if f.is_valid():
     ...    pass

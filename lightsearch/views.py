@@ -15,6 +15,11 @@ def search(form):
     results = [] # The list of results starts empty
     # Normalize the query
     keywords = normalize_query(form.cleaned_data['query'])
+    keywords.sort()
+    # Convert wildcards to a valid regexp
+    for i, key in enumerate(keywords):
+        key = key.replace('*', '.*')
+        keywords[i] = key
     # Create a regexp containing the keywords
     regexp = re.compile('|'.join(keywords), re.IGNORECASE)
     # Retrieve the list of searchable models
