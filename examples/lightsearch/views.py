@@ -9,19 +9,32 @@ from lightsearch.classes import ResultsContainer
 
 import re
 
+minus_capture_regexp = re.compile(r'^-([\w\d\-_]*)', re.IGNORECASE)
+
 def search(form):
     """Perform the search"""
     
     results = [] # The list of results starts empty
+    blacklist = [] # Contains the list of keywords which must be avoided
     # Normalize the query
     keywords = normalize_query(form.cleaned_data['query'])
     keywords.sort()
+
     # Convert wildcards to a valid regexp
+    # Extract the keywords preceded by the minus symbol
     for i, key in enumerate(keywords):
-        key = key.replace('*', '.*')
-        keywords[i] = key
+        test = minus_capture_regexp.search(key)
+        if test:
+            key = keywords.pop(i)
+            blacklist.append(test.group(1))
+        else:
+            key = key.replace('*', r'[\w\d\-_]*')
+            keywords[i] = key
     # Create a regexp containing the keywords
     regexp = re.compile('|'.join(keywords), re.IGNORECASE)
+    # Create a regexp containing the keywords of the blacklist
+    blacklist_regexp = re.compile('|'.join(blacklist), re.IGNORECASE)
+
     # Retrieve the list of searchable models
     models = settings.LIGHTSEARCH_MODELS
     # For each searchable model
@@ -42,14 +55,20 @@ def search(form):
         objects = object.objects.all()
         # Make the list of results concerning this model empty
         objects_results = []
+
         # Loop on objects in the databse
         for obj in objects:
+            add_it = False
             for field in fields: # For each field allowed
                 content = getattr(obj, field) # Retrieve the content
-                if regexp.findall(content):
-                    # If one of the keywords matches
-                    objects_results.append(obj) # Add this object
-                    break # Leave the looping on fields
+                if blacklist and blacklist_regexp.findall(content):
+                    add_it = False
+                elif regexp.findall(content):
+                    add_it = True
+            if add_it:  # Finally, if the object isn't blacklisted and match one
+                        # of the keywords
+                objects_results.append(obj) # Add this object
+
         # Once all objects of this model have been checked
         # add the results to the global results list
         results.append((name, objects_results))
