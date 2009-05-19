@@ -45,5 +45,13 @@ search:
     >>> results = search(f)
     >>> results.count()
     2
+    
+    >>> data = {'query': 'be -tomorrow'}
+    >>> f = SearchForm(data)
+    >>> if f.is_valid():
+    ...    pass
+    >>> results = search(f)
+    >>> results.count()
+    0
 
 """
