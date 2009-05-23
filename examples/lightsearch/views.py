@@ -4,46 +4,65 @@ from django.shortcuts import render_to_response as render
 from django.template import RequestContext
 from django.db.models import get_model
 from lightsearch.utils import get_method, normalize_query
+from lightsearch.utils import wildcardize as w
 from lightsearch.forms import SearchForm
 from lightsearch.classes import ResultsContainer
 
 import re
 
-minus_capture_regexp = re.compile(r'^-([\w\d\-_]*)', re.IGNORECASE)
+minus_capture_regexp = re.compile(r'^-([\w\d\-_\*]*)', re.IGNORECASE)
 
 def search(form):
     """Perform the search"""
     
     results = [] # The list of results starts empty
-    blacklist = [] # Contains the list of keywords which must be avoided
-    # Normalize the query
+    actions_list = []
     keywords = normalize_query(form.cleaned_data['query'])
-    keywords.sort()
+    
+    # All keywords 'OR' which aren't followed and preceded by something MUST be
+    # ignored.
+    #
+    # test OR world # OK!
+    # test OR # Ignored
+    # OR test # Ignored
+    for i, keyword in enumerate(keywords):
+        if keyword == 'OR' and not(i > 0 and i < len(keywords)-1):
+            keywords.pop(i)
 
-    # Convert wildcards to a valid regexp
-    # Extract the keywords preceded by the minus symbol
-    for i, key in enumerate(keywords):
-        test = minus_capture_regexp.search(key)
-        if test:
-            key = keywords.pop(i)
-            blacklist.append(test.group(1))
-        else:
-            key = key.replace('*', r'[\w\d\-_]*')
-            keywords[i] = key
-    # Create a regexp containing the keywords
-    regexp = re.compile('|'.join(keywords), re.IGNORECASE)
-    # Create a regexp containing the keywords of the blacklist
-    blacklist_regexp = re.compile('|'.join(blacklist), re.IGNORECASE)
-
-    # Retrieve the list of searchable models
+    # For each keyword
+    for i, keyword in enumerate(keywords):
+        if keyword == 'OR':
+            # This keyword is an 'OR' statement and isn't the first nor the last
+            # keyword
+            kwds = [w(keywords[i-1]), w(keywords[i+1])]
+            regexp = re.compile('|'.join(kwds), re.IGNORECASE)
+            actions_list.append(('required', regexp))
+        elif not keyword == 'OR':
+            test = minus_capture_regexp.search(keyword)
+            if test:
+                # This keyword is an exclusion keyword
+                regexp = re.compile(w(test.group(1)), re.IGNORECASE)
+                actions_list.append(('not', regexp))
+            else:
+                leave = False
+                if i+1 < len(keywords):
+                    if keywords[i+1] == 'OR':
+                        leave = True
+                if not leave and i > 0:
+                    if keywords[i-1] == 'OR':
+                        leave = True
+                if not leave:
+                    regexp = re.compile(w(keyword), re.IGNORECASE)
+                    actions_list.append(('required', regexp))
+    
     models = settings.LIGHTSEARCH_MODELS
-    # For each searchable model
+    
     for model in models:
         # The model link is <appname>.<model>
         link = model[1]
         # It's verbose name
         name = model[0]
-        # Retrieve this model
+        # Retrieve the model
         object = get_model(*link.split('.'))
         if object is None:
             raise Exception, "This model (%s) doesn't exist!" % model
@@ -55,24 +74,40 @@ def search(form):
         objects = object.objects.all()
         # Make the list of results concerning this model empty
         objects_results = []
-
-        # Loop on objects in the databse
+    
+        # Loop on objects in the database
         for obj in objects:
-            add_it = False
+            validated_actions = [ False for i in xrange(len(actions_list)) ]
+            
+            for i, action in enumerate(actions_list):
+                if action[0] == 'not':
+                    validated_actions[i] = True
+            
+            add_it = True
             for field in fields: # For each field allowed
-                content = getattr(obj, field) # Retrieve the content
-                if blacklist and blacklist_regexp.findall(content):
-                    add_it = False
-                elif regexp.findall(content):
-                    add_it = True
-            if add_it:  # Finally, if the object isn't blacklisted and match one
-                        # of the keywords
-                objects_results.append(obj) # Add this object
+                content = getattr(obj, field)
 
-        # Once all objects of this model have been checked
-        # add the results to the global results list
+                for i, action in enumerate(actions_list):
+                    result = action[1].findall(content)
+                    
+                    if result and action[0] == 'required':
+                        # This action is needed and it returned something
+                        validated_actions[i] = True
+                        
+                    elif result and action[0] == 'not':
+                        # This action mustn't be validated and it returned
+                        # something
+                        validated_actions[i] = False
+            
+            for v in validated_actions:
+                if not v:
+                    add_it = False
+                    break
+            
+            if add_it: # Finally, if the object validate all the conditions,
+                objects_results.append(obj) # add it
+            
         results.append((name, objects_results))
-    # Finally, render the pages
     container = ResultsContainer(results)
     return container
 

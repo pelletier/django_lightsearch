@@ -38,3 +38,9 @@ def normalize_query(query):
         else:
             pass
     return result
+
+def wildcardize(key):
+    """
+        Modify a keyword to be regexp-ready
+    """
+    return key.replace('*', r'[\w\d\-_]*')
