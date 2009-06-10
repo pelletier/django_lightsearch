@@ -11,3 +11,4 @@ syntax: glob
 *.old
 *.sqlite3
 *.kpf
+*.swp
