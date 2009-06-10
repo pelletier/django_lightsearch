@@ -41,13 +41,71 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="admonition warning" id="searches">
-<p class="first admonition-title">Warning</p>
-<p class="last">Document under construction</p>
+  <div class="section" id="perform-searches">
+<span id="searches"></span><h1>Perform searches<a class="headerlink" href="#perform-searches" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>You must have installed and configured Lightsearch. See <a class="reference external" href="installation.html#installation"><em>Installation</em></a>.
+Also, you must understand the way to use Lightsearch. You create a form and send
+results to the URL of Lightsearch. See the example page.</p>
 </div>
-<div class="section" id="perform-searches">
-<h1>Perform searches<a class="headerlink" href="#perform-searches" title="Permalink to this headline">¶</a></h1>
-<p>Here is the page about performing searches.</p>
+<div class="section" id="render-a-search-form">
+<h2>Render a search form<a class="headerlink" href="#render-a-search-form" title="Permalink to this headline">¶</a></h2>
+<p>Lightsearch provides a tag to render a search form:</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">load</span> <span class="nv">lightsearch_forms</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">lightsearch_searchform</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>The default template used to render the form is really dry and so ugly, but of
+course, you can override it.</p>
+</div>
+<div class="section" id="override-the-results-page">
+<h2>Override the results page<a class="headerlink" href="#override-the-results-page" title="Permalink to this headline">¶</a></h2>
+<p>So, you hate my <em>so</em> beautiful results page? Okay. Its template file is
+<tt class="docutils literal"><span class="pre">lightsearch/search_results.html</span></tt>. You have to know that Lightsearch add one
+variable to the context of the results page: <tt class="docutils literal"><span class="pre">results</span></tt> (surprising isn&#8217;t it?).
+<tt class="docutils literal"><span class="pre">results</span></tt> is a <tt class="docutils literal"><span class="pre">ResultsContainer</span></tt> instance. The aim of the
+<tt class="docutils literal"><span class="pre">ResultsContainer</span></tt> class is to make easy the management of the results of the
+search. Here is an example to print all the results:</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">model</span> <span class="k">in</span> <span class="nv">results.sets</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;h2&gt;</span><span class="cp">{{</span><span class="nv">model.name</span><span class="cp">}}</span><span class="x">&lt;/h2&gt;</span>
+<span class="x">&lt;p&gt;</span>
+<span class="x">     &lt;ul&gt;</span>
+<span class="x">             </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">item</span> <span class="k">in</span> <span class="nv">model.results</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">             &lt;li&gt;</span><span class="cp">{{</span><span class="nv">item</span><span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">             </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">     &lt;/ul&gt;</span>
+<span class="x">&lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>As you can see, the results are grouped by model. It&#8217;s for now the only
+structure provided by Lightsearch.</p>
+</div>
+<div class="section" id="template-tags">
+<h2>Template tags<a class="headerlink" href="#template-tags" title="Permalink to this headline">¶</a></h2>
+<p>In the results page, you can load <tt class="docutils literal"><span class="pre">lightsearch_data</span></tt>:</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">load</span> <span class="nv">lightsearch_data</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>It will contains some useful tags and filters to manage results. For now, the
+only one tag is <tt class="docutils literal"><span class="pre">models_type</span></tt>. Here is its syntax:</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">models_type</span> <span class="k">in</span> <span class="nv">results</span> <span class="k">as</span> <span class="nv">variable</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">variable</span></tt> will contain a list of the name of models where results have been
+found. Here is an example:</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">models_type</span> <span class="k">in</span> <span class="nv">results</span> <span class="k">as</span> <span class="nv">mt</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">Results found in:</span>
+<span class="x">&lt;ul&gt;</span>
+<span class="x">     </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">type</span> <span class="k">in</span> <span class="nv">mt</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">     &lt;li&gt;</span><span class="cp">{{</span><span class="nv">type</span><span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">     </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">     &lt;/ul&gt;</span>
+</pre></div>
+</div>
+<p>Have fun !</p>
+</div>
 </div>
 
 
@@ -56,6 +114,17 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Perform searches</a><ul>
+<li><a class="reference external" href="#requirements">Requirements</a></li>
+<li><a class="reference external" href="#render-a-search-form">Render a search form</a></li>
+<li><a class="reference external" href="#override-the-results-page">Override the results page</a></li>
+<li><a class="reference external" href="#template-tags">Template tags</a></li>
+</ul>
+</li>
+</ul>
+
             <h4>Previous topic</h4>
             <p class="topless"><a href="installation.html"
                                   title="previous chapter">Installation</a></p>

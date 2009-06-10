@@ -11,6 +11,14 @@ Welcome to Django-Lightsearch's documentation!
 **Lightsearch** is a **small Django application** designed to perform search
 queries for **small sites** (especialy blogs).
 
+Remember to:
+
+* Follow development on `Bitbucket`_.
+* Report bugs, report features and browse the source through `Tracker`_.
+
+.. _Bitbucket: http://bitbucket.org/Kizlum/django-lightsearch/
+.. _Tracker: http://bitbucket.org/Kizlum/django-lightsearch/issues/
+
 Getting started
 ===============
 
