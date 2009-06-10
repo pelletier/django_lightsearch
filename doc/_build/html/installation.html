@@ -51,18 +51,18 @@
 <h2>Download Ligthsearch<a class="headerlink" href="#download-ligthsearch" title="Permalink to this headline">¶</a></h2>
 <p>First of all, you need to download the latest released version of Lightsearch.
 Go to our <a class="reference external" href="http://bitbucket.org/Kizlum/django-lightsearch/downloads/">downloads section</a> then download the latest tagged version. If you
-don&#8217;t understand what it mean or if you are too lazy, here the direct link to
+don&#8217;t understand what it mean or if you are too lazy, here is the direct link to
 <a class="reference external" href="http://bitbucket.org/Kizlum/django-lightsearch/get/0.2.zip">download the 0.2 version</a>.</p>
 </div>
 <div class="section" id="register-the-application">
 <h2>Register the application<a class="headerlink" href="#register-the-application" title="Permalink to this headline">¶</a></h2>
-<p>It&#8217;s just like every Djangoo applications: edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt> file and
+<p>It&#8217;s just like every Django applications: edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt> file and
 add <strong>lightsearch</strong> to the <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt> list.</p>
 </div>
 <div class="section" id="configure-the-engine">
 <h2>Configure the engine<a class="headerlink" href="#configure-the-engine" title="Permalink to this headline">¶</a></h2>
 <p>Stay in your <tt class="docutils literal"><span class="pre">settings.py</span></tt> file, and add the <tt class="docutils literal"><span class="pre">LIGHTSEARCH_MODELS</span></tt> setting.
-It is a list of tuples. Each tupe represents a model. Its first part is the
+It is a list of tuples. Each tuple represents a model. Its first part is the
 verbose name of the model (ie: the human readable name) and the second is the
 link to the model (ie: something like &lt;application_name&gt;.&lt;model&gt;). Here is an
 example:</p>
@@ -103,7 +103,7 @@ to tweak a bit more the engine, read the suitable part of the documentation.</p>
 <h2>Configure the models<a class="headerlink" href="#configure-the-models" title="Permalink to this headline">¶</a></h2>
 <p>Now, you have to set which fields of your models have to be included in the
 search queries. So, open your <tt class="docutils literal"><span class="pre">models.py</span></tt> file(s) and add a <tt class="docutils literal"><span class="pre">Lightsearch</span></tt>
-class containing a <tt class="docutils literal"><span class="pre">fields</span></tt> list to each model you have add in your
+class containing a <tt class="docutils literal"><span class="pre">fields</span></tt> list to each model you have added in your
 <tt class="docutils literal"><span class="pre">settings.py</span></tt>. Here is an example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
  <span class="sd">&quot;&quot;&quot;</span>

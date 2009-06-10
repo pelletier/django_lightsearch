@@ -46,8 +46,9 @@
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>You must have installed and configured Lightsearch. See <a class="reference external" href="installation.html#installation"><em>Installation</em></a>.
-Also, you must understand the way to use Lightsearch. You create a form and send
-results to the URL of Lightsearch. See the example page.</p>
+Also, you must understand how to use Lightsearch. You create a form and send
+results to the URL of Lightsearch using <tt class="docutils literal"><span class="pre">POST</span></tt>. See the example page included
+in the zip file.</p>
 </div>
 <div class="section" id="render-a-search-form">
 <h2>Render a search form<a class="headerlink" href="#render-a-search-form" title="Permalink to this headline">¶</a></h2>
@@ -56,7 +57,7 @@ results to the URL of Lightsearch. See the example page.</p>
 <span class="cp">{%</span> <span class="k">lightsearch_searchform</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>The default template used to render the form is really dry and so ugly, but of
+<p>The default template used to render the form is really dry and ugly, but of
 course, you can override it.</p>
 </div>
 <div class="section" id="override-the-results-page">
@@ -65,8 +66,8 @@ course, you can override it.</p>
 <tt class="docutils literal"><span class="pre">lightsearch/search_results.html</span></tt>. You have to know that Lightsearch add one
 variable to the context of the results page: <tt class="docutils literal"><span class="pre">results</span></tt> (surprising isn&#8217;t it?).
 <tt class="docutils literal"><span class="pre">results</span></tt> is a <tt class="docutils literal"><span class="pre">ResultsContainer</span></tt> instance. The aim of the
-<tt class="docutils literal"><span class="pre">ResultsContainer</span></tt> class is to make easy the management of the results of the
-search. Here is an example to print all the results:</p>
+<tt class="docutils literal"><span class="pre">ResultsContainer</span></tt> class is to make the management of the results of the
+search easy. Here is an example to print all the results:</p>
 <div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">model</span> <span class="k">in</span> <span class="nv">results.sets</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">&lt;h2&gt;</span><span class="cp">{{</span><span class="nv">model.name</span><span class="cp">}}</span><span class="x">&lt;/h2&gt;</span>
 <span class="x">&lt;p&gt;</span>
@@ -88,7 +89,7 @@ structure provided by Lightsearch.</p>
 <div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">load</span> <span class="nv">lightsearch_data</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>It will contains some useful tags and filters to manage results. For now, the
+<p>It will contain some useful tags and filters to manage results. For now, the
 only one tag is <tt class="docutils literal"><span class="pre">models_type</span></tt>. Here is its syntax:</p>
 <div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">models_type</span> <span class="k">in</span> <span class="nv">results</span> <span class="k">as</span> <span class="nv">variable</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>

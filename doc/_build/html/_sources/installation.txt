@@ -8,7 +8,7 @@ Download Ligthsearch
 
 First of all, you need to download the latest released version of Lightsearch.
 Go to our `downloads section`_ then download the latest tagged version. If you 
-don't understand what it mean or if you are too lazy, here the direct link to 
+don't understand what it mean or if you are too lazy, here is the direct link to
 `download the 0.2 version`_.
 
 .. _downloads section: http://bitbucket.org/Kizlum/django-lightsearch/downloads/
@@ -18,7 +18,7 @@ don't understand what it mean or if you are too lazy, here the direct link to
 Register the application
 ------------------------
 
-It's just like every Djangoo applications: edit your ``settings.py`` file and 
+It's just like every Django applications: edit your ``settings.py`` file and 
 add **lightsearch** to the ``INSTALLED_APPS`` list. 
 
 
@@ -26,7 +26,7 @@ Configure the engine
 --------------------
 
 Stay in your ``settings.py`` file, and add the ``LIGHTSEARCH_MODELS`` setting. 
-It is a list of tuples. Each tupe represents a model. Its first part is the 
+It is a list of tuples. Each tuple represents a model. Its first part is the 
 verbose name of the model (ie: the human readable name) and the second is the 
 link to the model (ie: something like <application_name>.<model>). Here is an 
 example:
@@ -76,7 +76,7 @@ Configure the models
 
 Now, you have to set which fields of your models have to be included in the 
 search queries. So, open your ``models.py`` file(s) and add a ``Lightsearch`` 
-class containing a ``fields`` list to each model you have add in your 
+class containing a ``fields`` list to each model you have added in your 
 ``settings.py``. Here is an example:
 
 .. code-block:: python
