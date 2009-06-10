@@ -8,13 +8,19 @@ on multiple models.
 Install
 =======
 
-Read INSTALL for detailed explanations.
+Read the documentation!
 
 Usage
 =====
 
-Read the USAGE file for detailed explanations, or read-it online:
+Please, read the documentation!
 
+Documentation
+=============
+
+The documentation is Sphinx-based. Install Sphinx 0.6.1, go to the doc/ folder 
+then type ``make html`` to generate the HTML version of the documentation. The
+results will be in doc/_build/html/.
 
 Author
 ======
