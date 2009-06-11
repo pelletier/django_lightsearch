@@ -9,7 +9,7 @@ imports
 -------
 
     >>> from utils import get_method, normalize_query, wildcardize
-    >>> from views import search
+    >>> from views import search, perform_search
     >>> from forms import SearchForm
     >>> from django.conf import settings
 
@@ -80,6 +80,19 @@ search:
     >>> if f.is_valid():
     ...    pass
     >>> results = search(f)
+    >>> results.count()
+    1
+
+perform_search:
+
+    >>> keywords = "mike OR jeff"
+    >>> results = perform_search(keywords, normalized=False)
+    >>> results.count()
+    2
+
+    >>> keywords = "hel*o -mike"
+    >>> keywords = normalize_query(keywords)
+    >>> results = perform_search(keywords)
     >>> results.count()
     1
 

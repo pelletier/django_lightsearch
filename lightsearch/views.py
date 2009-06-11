@@ -13,11 +13,17 @@ import re
 minus_capture_regexp = re.compile(r'^-([\w\d\-_\*]*)', re.IGNORECASE)
 
 def search(form):
+    keywords = normalize_query(form.cleaned_data['query'])
+    return perform_search(keywords)
+
+def perform_search(keywords, normalized=True):
     """Perform the search"""
     
     results = [] # The list of results starts empty
     actions_list = []
-    keywords = normalize_query(form.cleaned_data['query'])
+
+    if not normalized:
+        keywords = normalize_query(keywords)
     
     # All keywords 'OR' which aren't followed and preceded by something MUST be
     # ignored.
