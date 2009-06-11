@@ -30,7 +30,7 @@ def models_type(parser, token):
     
     # Check the syntax
     if not len_bits == 5:
-        raise TemplateSyntaxError("%s tags requiere 4 arguments" % bits[0])
+        raise TemplateSyntaxError("%s tag needs 4 arguments" % bits[0])
     if not bits[1] == 'in':
         raise TemplateSyntaxError('The first argument must be "in"')
     if not bits[3] == 'as':

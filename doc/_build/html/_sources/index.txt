@@ -29,8 +29,13 @@ Getting started
    installation
    Perform searches <searches>
 
-Indices and tables
-==================
+References
+==========
 
-* :ref:`search`
+Complete references of the objects and the methods.
+
+.. toctree::
+   :maxdepth: 2
+
+   templatetags
 
