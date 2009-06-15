@@ -1,0 +1,17 @@
+Metadata-Version: 1.0
+Name: django-lightsearch
+Version: 0.3
+Summary: A modest searching application for Django
+Home-page: http://bitbucket.org/Kizlum/django-lightsearch/
+Author: Thomas Pelletier
+Author-email: pelletier.thomas@gmail.com
+License: Apache License 2
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Framework :: Django
