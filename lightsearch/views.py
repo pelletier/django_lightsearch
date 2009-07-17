@@ -1,3 +1,9 @@
+"""
+The Lightsearch code.
+The perform_search do the big job. The search function is just a bridge between 
+forms and searching.
+"""
+
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.shortcuts import render_to_response as render
@@ -129,4 +135,4 @@ def search_callback(request):
                             {'results': container},
                             context_instance=RequestContext(request))
             
-    return HttpResponseRedirect('/') # TODO: better redirection
+    return HttpResponseRedirect('/')
