@@ -16,9 +16,10 @@ from lightsearch.classes import ResultsContainer
 
 import re
 
-minus_capture_regexp = re.compile(r'^-([\w\d\-_\*]*)', re.IGNORECASE)
+MINUS_CAPTURE_REGEXP = re.compile(r'^-([\w\d\-_\*]*)', re.IGNORECASE)
 
 def search(form):
+    """Normalize the query from a form then perform the search"""
     keywords = normalize_query(form.cleaned_data['query'])
     return perform_search(keywords)
 
@@ -50,7 +51,7 @@ def perform_search(keywords, normalized=True):
             regexp = re.compile('|'.join(kwds), re.IGNORECASE)
             actions_list.append(('required', regexp))
         elif not keyword == 'OR':
-            test = minus_capture_regexp.search(keyword)
+            test = MINUS_CAPTURE_REGEXP.search(keyword)
             if test:
                 # This keyword is an exclusion keyword
                 regexp = re.compile(w(test.group(1)), re.IGNORECASE)
@@ -75,15 +76,15 @@ def perform_search(keywords, normalized=True):
         # It's verbose name
         name = model[0]
         # Retrieve the model
-        object = get_model(*link.split('.'))
-        if object is None:
+        obj = get_model(*link.split('.'))
+        if obj is None:
             raise Exception, "This model (%s) doesn't exist!" % model
         # Create a new instance of the model
-        instance = object()
+        instance = obj()
         # Get the fields
         fields = instance.Lightsearch.fields
         # Retrieve the objects from the database
-        objects = object.objects.all()
+        objects = obj.objects.all()
         # Make the list of results concerning this model empty
         objects_results = []
     
@@ -111,8 +112,8 @@ def perform_search(keywords, normalized=True):
                         # something
                         validated_actions[i] = False
             
-            for v in validated_actions:
-                if not v:
+            for valids in validated_actions:
+                if not valids:
                     add_it = False
                     break
             
@@ -126,7 +127,7 @@ def perform_search(keywords, normalized=True):
 def search_callback(request):
     """Handle the search request"""
     
-    method=get_method().upper()
+    method = get_method().upper()
     if request.method == method:
         form = SearchForm(getattr(request, method))
         if form.is_valid():

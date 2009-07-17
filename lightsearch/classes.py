@@ -30,5 +30,5 @@ class ResultsContainer():
         """
         counter = 0
         for pack in self.sets:
-            counter += pack.count
+            counter += pack.count()
         return counter

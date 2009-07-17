@@ -1,3 +1,7 @@
+"""
+The forms are the human way to interact with the search engine (for now).
+"""
+
 from django import forms
 
 class SearchForm(forms.Form):
