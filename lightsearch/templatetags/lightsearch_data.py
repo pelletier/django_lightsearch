@@ -4,7 +4,7 @@ Templatetags built to use search results in templates.
 from django import template
 
 
-REGISTER = template.Library()
+register = template.Library()
 
 class ModelsTypeNode(template.Node):
     """The node for templates"""
@@ -46,4 +46,4 @@ def models_type(parser, token):
     # Compute
     return ModelsTypeNode(bits[2], bits[4])
     
-REGISTER.tag(models_type)
+register.tag(models_type)
