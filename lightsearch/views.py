@@ -21,9 +21,9 @@ MINUS_CAPTURE_REGEXP = re.compile(r'^-([\w\d\-_\*]*)', re.IGNORECASE)
 def search(form):
     """Normalize the query from a form then perform the search"""
     keywords = normalize_query(form.cleaned_data['query'])
-    return perform_search(keywords)
+    return perform_search(keywords, normalized=True)
 
-def perform_search(keywords, normalized=True):
+def perform_search(keywords, normalized=False, queryset=None):
     """Perform the search"""
     
     results = [] # The list of results starts empty
@@ -67,24 +67,33 @@ def perform_search(keywords, normalized=True):
                 if not leave:
                     regexp = re.compile(w(keyword), re.IGNORECASE)
                     actions_list.append(('required', regexp))
-    
-    models = settings.LIGHTSEARCH_MODELS
-    
-    for model in models:
-        # The model link is <appname>.<model>
-        link = model[1]
-        # It's verbose name
-        name = model[0]
-        # Retrieve the model
-        obj = get_model(*link.split('.'))
-        if obj is None:
-            raise Exception, "This model (%s) doesn't exist!" % model
+
+    models = [] # we'll store actual model references here, along with the queryset to use
+
+    if queryset:
+        models.append((queryset.model, queryset))
+        name = queryset.model._meta.verbose_name.capitalize()
+
+    else:
+        model_names = settings.LIGHTSEARCH_MODELS
+
+        for full_name in model_names:
+            # The model link is <appname>.<model>
+            link = full_name[1]
+            # It's verbose name
+            name = full_name[0]
+            # Retrieve the model
+            object = get_model(*link.split('.'))
+            if object is None:
+                raise Exception, "This model (%s) doesn't exist!" % full_name
+            models.append((object, object.objects.all()))
+
+    for object, objects in models:                
         # Create a new instance of the model
-        instance = obj()
+        instance = object()
         # Get the fields
         fields = instance.Lightsearch.fields
-        # Retrieve the objects from the database
-        objects = obj.objects.all()
+
         # Make the list of results concerning this model empty
         objects_results = []
     
