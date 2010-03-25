@@ -9,7 +9,7 @@ register = template.Library()
 class ModelsTypeNode(template.Node):
     """The node for templates"""
     def __init__(self, results, var_name):
-        template.Node.__init__()
+        template.Node.__init__(self)
         self.results = results
         self.var_name = var_name
     
