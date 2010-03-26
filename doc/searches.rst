@@ -88,7 +88,7 @@ of models to search from at runtime.
 
 For example, with the following models:
 
-.. code-block::django
+.. code-block:: python
 
    class Category(models.Model):
        title = models.CharField(max_length=50)
@@ -105,7 +105,7 @@ particular category.
 To do this, create a queryset in your view which defines the models to be searched,
 then pass that queryset to the lightsearch.views.perform_search.
 
-.. code-block::django
+.. code-block:: python
 
    from lightsearch.views import perform_search
    
@@ -116,7 +116,7 @@ Here is a more complete example of a possible view. Here a form has been created
 sends a GET request with the search keywords in key `c` and the `Category.pk` in
 key `c`.
 
-.. code-block::django
+.. code-block:: python
 
    # views.py
    
