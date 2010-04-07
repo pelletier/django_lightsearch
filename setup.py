@@ -19,7 +19,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'django-lightsearch',
-    version = '0.3',
+    version = '0.4',
     description = 'A modest searching application for Django',
     author = 'Thomas Pelletier',
     author_email = 'pelletier.thomas@gmail.com',

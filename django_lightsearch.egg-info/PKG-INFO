@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: django-lightsearch
-Version: 0.3
+Version: 0.4
 Summary: A modest searching application for Django
 Home-page: http://bitbucket.org/Kizlum/django-lightsearch/
 Author: Thomas Pelletier
