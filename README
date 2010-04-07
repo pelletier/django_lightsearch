@@ -22,7 +22,8 @@ The documentation is Sphinx-based. Install Sphinx 0.6.1, go to the doc/ folder
 then type ``make html`` to generate the HTML version of the documentation. The
 results will be in doc/_build/html/.
 
-Author
+Coders
 ======
 
 Thomas PELLETIER <pelletier.thomas@gmail.com>
+Chris LAWLOR
