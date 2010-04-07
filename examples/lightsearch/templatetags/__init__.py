@@ -1,3 +1,0 @@
-"""
-Template tags for Lightsearch
-"""

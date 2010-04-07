@@ -34,6 +34,7 @@ def normalize_query(query):
     """
     result = []
     regexp = re.compile(r'"([^"]+)"|(\S+)')
+    
     for match in regexp.findall(query):
         if match[0]:
             result.append(match[0])

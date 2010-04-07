@@ -86,14 +86,28 @@ search:
 perform_search:
 
     >>> keywords = "mike OR jeff"
-    >>> results = perform_search(keywords, normalized=False)
+    >>> results = perform_search(keywords)
     >>> results.count()
     2
 
     >>> keywords = "hel*o -mike"
     >>> keywords = normalize_query(keywords)
-    >>> results = perform_search(keywords)
+    >>> results = perform_search(keywords, normalized=True)
     >>> results.count()
     1
+
+perform_search with custom queryset:
+
+    >>> from myapp.models import Author, Ticket
+    >>> queryset = Ticket.objects.filter(author__pk=1) # Only mike's posts
+    >>> results = perform_search("name", queryset=queryset)
+    >>> results.count()
+    1
+
+    >>> from myapp.models import Author, Ticket
+    >>> queryset = Ticket.objects.filter(author__pk=1) # Only mike's posts
+    >>> results = perform_search("mike OR jeff", queryset=queryset)
+    >>> results.count()
+    0 
 
 """
