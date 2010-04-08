@@ -1,15 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installation &mdash; Django-Lightsearch v2.0 documentation</title>
+    <title>Installation &mdash; Django-Lightsearch v0.4 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '2.0',
+        URL_ROOT:    '#',
+        VERSION:     '0.4',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,9 +19,7 @@
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Django-Lightsearch v2.0 documentation" href="index.html" />
+    <link rel="top" title="Django-Lightsearch v0.4 documentation" href="index.html" />
     <link rel="next" title="Perform searches" href="searches.html" />
     <link rel="prev" title="Requirements" href="requirements.html" /> 
   </head>
@@ -36,17 +36,17 @@
         <li class="right" >
           <a href="requirements.html" title="Requirements"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Django-Lightsearch v2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Django-Lightsearch v0.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
+
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
             
-  
-  <div class="section" id="id1">
-<span id="installation"></span><h1>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="download-ligthsearch">
 <h2>Download Ligthsearch<a class="headerlink" href="#download-ligthsearch" title="Permalink to this headline">¶</a></h2>
 <p>First of all, you need to download the latest released version of Lightsearch.
@@ -114,8 +114,8 @@ class containing a <tt class="docutils literal"><span class="pre">fields</span><
 <span class="sd">     &quot;jack&quot;</span>
 
 <span class="sd"> &quot;&quot;&quot;</span>
- <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mf">200</span><span class="p">)</span>
- <span class="n">address</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">&#39;Address&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mf">200</span><span class="p">)</span>
+ <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+ <span class="n">address</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">&#39;Address&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
  <span class="n">bio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Life&#39;</span><span class="p">)</span>
 
  <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -137,7 +137,7 @@ class containing a <tt class="docutils literal"><span class="pre">fields</span><
         <div class="sphinxsidebarwrapper">
             <h3><a href="index.html">Table Of Contents</a></h3>
             <ul>
-<li><a class="reference external" href="">Installation</a><ul>
+<li><a class="reference external" href="#">Installation</a><ul>
 <li><a class="reference external" href="#download-ligthsearch">Download Ligthsearch</a></li>
 <li><a class="reference external" href="#register-the-application">Register the application</a></li>
 <li><a class="reference external" href="#configure-the-engine">Configure the engine</a></li>
@@ -148,19 +148,29 @@ class containing a <tt class="docutils literal"><span class="pre">fields</span><
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="requirements.html" title="previous chapter">Requirements</a></p>
+            <p class="topless"><a href="requirements.html"
+                                  title="previous chapter">Requirements</a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="searches.html" title="next chapter">Perform searches</a></p>
+            <p class="topless"><a href="searches.html"
+                                  title="next chapter">Perform searches</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
-              <li><a href="_sources/installation.txt">Show Source</a></li>
+              <li><a href="_sources/installation.txt"
+                     rel="nofollow">Show Source</a></li>
             </ul>
-          <h3>Quick search</h3>
-            <form class="search" action="search.html" method="get">
-              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
-              <input type="hidden" name="check_keywords" value="yes" />
-              <input type="hidden" name="area" value="default" />
-            </form>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -170,19 +180,19 @@ class containing a <tt class="docutils literal"><span class="pre">fields</span><
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
+             >index</a></li>
         <li class="right" >
           <a href="searches.html" title="Perform searches"
-             accesskey="N">next</a> |</li>
+             >next</a> |</li>
         <li class="right" >
           <a href="requirements.html" title="Requirements"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Django-Lightsearch v2.0 documentation</a> &raquo;</li> 
+             >previous</a> |</li>
+        <li><a href="index.html">Django-Lightsearch v0.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2009, Thomas PELLETIER.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.5.
     </div>
   </body>
 </html>
