@@ -12,3 +12,4 @@ syntax: glob
 *.sqlite3
 *.kpf
 *.swp
+_build
