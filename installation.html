@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation &mdash; Django-Lightsearch v2.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Django-Lightsearch v2.0 documentation" href="index.html" />
+    <link rel="next" title="Perform searches" href="searches.html" />
+    <link rel="prev" title="Requirements" href="requirements.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="searches.html" title="Perform searches"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="requirements.html" title="Requirements"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Django-Lightsearch v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="id1">
+<span id="installation"></span><h1>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="download-ligthsearch">
+<h2>Download Ligthsearch<a class="headerlink" href="#download-ligthsearch" title="Permalink to this headline">¶</a></h2>
+<p>First of all, you need to download the latest released version of Lightsearch.
+Go to our <a class="reference external" href="http://bitbucket.org/Kizlum/django-lightsearch/downloads/">downloads section</a> then download the latest tagged version. If you
+don&#8217;t understand what it mean or if you are too lazy, here is the direct link to
+<a class="reference external" href="http://bitbucket.org/Kizlum/django-lightsearch/get/0.2.zip">download the 0.2 version</a>.</p>
+</div>
+<div class="section" id="register-the-application">
+<h2>Register the application<a class="headerlink" href="#register-the-application" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s just like every Django applications: edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt> file and
+add <strong>lightsearch</strong> to the <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt> list.</p>
+</div>
+<div class="section" id="configure-the-engine">
+<h2>Configure the engine<a class="headerlink" href="#configure-the-engine" title="Permalink to this headline">¶</a></h2>
+<p>Stay in your <tt class="docutils literal"><span class="pre">settings.py</span></tt> file, and add the <tt class="docutils literal"><span class="pre">LIGHTSEARCH_MODELS</span></tt> setting.
+It is a list of tuples. Each tuple represents a model. Its first part is the
+verbose name of the model (ie: the human readable name) and the second is the
+link to the model (ie: something like &lt;application_name&gt;.&lt;model&gt;). Here is an
+example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">LIGHTSEARCH_MODELS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c"># (&#39;Verbose name&#39;, &#39;&lt;appname&gt;.&lt;model&gt;&#39;),</span>
+    <span class="p">(</span><span class="s">&#39;Ticket&#39;</span><span class="p">,</span> <span class="s">&#39;myapp.ticket&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;Author&#39;</span><span class="p">,</span> <span class="s">&#39;myapp.author&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>You also have to add the template directory of Lightsearch in the
+<tt class="docutils literal"><span class="pre">TEMPLATE_DIRS</span></tt> setting. Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Those two lines are needed</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">ROOT_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+
+<span class="c"># A part of your settings.py there</span>
+
+<span class="n">TEMPLATE_DIRS</span> <span class="o">=</span> <span class="p">(</span>
+              <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT_PATH</span><span class="p">,</span> <span class="s">&#39;templates&#39;</span><span class="p">),</span> <span class="c"># This line doesn&#39;t matter. Just for example</span>
+              <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT_PATH</span><span class="p">,</span> <span class="s">&#39;lightsearch&#39;</span><span class="p">,</span> <span class="s">&#39;templates&#39;</span><span class="p">),</span> <span class="c"># Add this line</span>
+<span class="p">)</span>
+
+<span class="c"># The end of your setting.py</span>
+</pre></div>
+</div>
+<p>It&#8217;s okay for the basic configuration of the <tt class="docutils literal"><span class="pre">settings.py</span></tt> file. If you want
+to tweak a bit more the engine, read the suitable part of the documentation.</p>
+</div>
+<div class="section" id="add-the-urls">
+<h2>Add the URLs<a class="headerlink" href="#add-the-urls" title="Permalink to this headline">¶</a></h2>
+<p>You just have to include <tt class="docutils literal"><span class="pre">lightsearch.urls</span></tt> in you <tt class="docutils literal"><span class="pre">urls.py</span></tt> file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="s">r&#39;^search/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;lightsearch.urls&#39;</span><span class="p">)),</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-the-models">
+<h2>Configure the models<a class="headerlink" href="#configure-the-models" title="Permalink to this headline">¶</a></h2>
+<p>Now, you have to set which fields of your models have to be included in the
+search queries. So, open your <tt class="docutils literal"><span class="pre">models.py</span></tt> file(s) and add a <tt class="docutils literal"><span class="pre">Lightsearch</span></tt>
+class containing a <tt class="docutils literal"><span class="pre">fields</span></tt> list to each model you have added in your
+<tt class="docutils literal"><span class="pre">settings.py</span></tt>. Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+ <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     An author who write a lot of tickets</span>
+
+<span class="sd">     &gt;&gt;&gt; jack = Author.objects.create(name=&quot;jack&quot;, address=&quot;jack@example.com&quot;, bio=&quot;I love Django&quot;)</span>
+<span class="sd">     &gt;&gt;&gt; jack.name</span>
+<span class="sd">     &quot;jack&quot;</span>
+
+<span class="sd"> &quot;&quot;&quot;</span>
+ <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mf">200</span><span class="p">)</span>
+ <span class="n">address</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">&#39;Address&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mf">200</span><span class="p">)</span>
+ <span class="n">bio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Life&#39;</span><span class="p">)</span>
+
+ <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="k">return</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> (</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+
+ <span class="k">class</span> <span class="nc">Lightsearch</span><span class="p">:</span>
+     <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;bio&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Once you have finished, you are ready to go.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Installation</a><ul>
+<li><a class="reference external" href="#download-ligthsearch">Download Ligthsearch</a></li>
+<li><a class="reference external" href="#register-the-application">Register the application</a></li>
+<li><a class="reference external" href="#configure-the-engine">Configure the engine</a></li>
+<li><a class="reference external" href="#add-the-urls">Add the URLs</a></li>
+<li><a class="reference external" href="#configure-the-models">Configure the models</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="requirements.html" title="previous chapter">Requirements</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="searches.html" title="next chapter">Perform searches</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/installation.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="searches.html" title="Perform searches"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="requirements.html" title="Requirements"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Django-Lightsearch v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Thomas PELLETIER.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1.
+    </div>
+  </body>
+</html>
